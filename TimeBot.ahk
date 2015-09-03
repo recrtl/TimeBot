@@ -29,6 +29,7 @@ ReadINI(MiddleY          , "Button positions", "MiddleY"            , 300)
 
 ReadINI(WarpPeriodHour, "Warp", "WarpPeriodHour", 1)
 WarpPeriod := 1000 * 60 * 60 * WarpPeriodHour
+LastWarpTime :=
 
 InitOSD()
 
@@ -48,6 +49,7 @@ InitOSD()
 ; Press Windows + Space to stop the bot
 #Space::
 
+  LastWarpTime :=
   SetTimer Timewarp, off
   SetTimer Upgrade, off
   SetTimer Fire, off
@@ -140,6 +142,7 @@ Timewarp:
   ClickUnity(IdleModeX, IdleModeY)
   Sleep 500
 
+  LastWarpTime := A_Now
   SetTimer Upgrade, 1000
   SetTimer Fire, 10
   SetTimer Timewarp, %WarpPeriod%
@@ -152,6 +155,7 @@ InitOSD()
   global BotEnabledText
   global WarpPeriodText
   global ClickEnabledText
+  global RemainingTimeText
   
   initText = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -167,6 +171,7 @@ InitOSD()
   Gui, Add, Text, cFF0000, [F4] Calibrate buttons
   Gui, Add, Text, vClickEnabledText cFF0000, %initText%
   Gui, Add, Text, cFF0000, [Escape] Exit script
+  Gui, Add, Text, vRemainingTimeText cFF0000, %initText%
   ; Make all pixels of this color transparent and make the text itself translucent (150):
   WinSet, TransColor, %CustomColor% 150
   SetTimer, UpdateOSD, 200
@@ -176,10 +181,22 @@ InitOSD()
 UpdateOSD:
   if(OSDEnabled)
   {
+    if(LastWarpTime)
+    {
+      elapsed := A_Now - LastWarpTime
+      remaining := (WarpPeriod // 1000 - elapsed) // 60
+      GuiControl,, RemainingTimeText, Remaining time: %remaining%m
+    }
+    else
+    {
+      GuiControl,, RemainingTimeText, Remaining time: N/A
+    }
+    
     GuiControl,, BotEnabledText, [Enter] Bot enabled: %BotEnabled%
     GuiControl,, WarpPeriodText, [F3] Warp every: %WarpPeriodHour%h
     GuiControl,, ClickEnabledText, [F5] Click enabled: %ClickEnabled%
-    Gui, Show, x0 y400 NoActivate
+
+    Gui, Show, x0 y200 NoActivate
 
     DrawBox("Timewarp", TimewarpX, TimewarpY, 25, 25)
     DrawBox("IdleMode", IdleModeX, IdleModeY, 25, 25)
