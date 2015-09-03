@@ -197,23 +197,24 @@ InitOSD()
   global ClickEnabledText
   global ForceMouseMiddleEnabledText
   global RemainingTimeText
-  
+
   initText = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   CustomColor = EEAA99
   Gui +LastFound +AlwaysOnTop -Caption +ToolWindow
   Gui, Color, %CustomColor%
-  Gui, Font, s16  ; Set a large font size (32-point).
-  Gui, Add, Text, vBotEnabledText cFF0000, %initText%
-  Gui, Add, Text, cFF0000, [Space] Disable bot
-  Gui, Add, Text, cFF0000, [T] Force timewarp
-  Gui, Add, Text, cFF0000, [F2] Hide OSD
-  Gui, Add, Text, vWarpPeriodText cFF0000, %initText%
-  Gui, Add, Text, cFF0000, [F4] Calibrate buttons
-  Gui, Add, Text, vClickEnabledText cFF0000, %initText%
-  Gui, Add, Text, vForceMouseMiddleEnabledText cFF0000, %initText%
-  Gui, Add, Text, cFF0000, [Escape] Exit script
-  Gui, Add, Text, vRemainingTimeText cFF0000, %initText%
+  Gui, Font, s14  ; Set a large font size (32-point).
+  Gui, Add, Text, y+5 vBotEnabledText cFF0000, %initText%
+  Gui, Add, Text, y+5 cFF0000, [Space] Disable bot
+  Gui, Add, Text, y+5 cFF0000, [T] Force timewarp
+  Gui, Add, Text, y+5 cFF0000, [Y] Plan timewarp
+  Gui, Add, Text, y+5 cFF0000, [F2] Hide OSD
+  Gui, Add, Text, y+5 vWarpPeriodText cFF0000, %initText%
+  Gui, Add, Text, y+5 cFF0000, [F4] Calibrate buttons
+  Gui, Add, Text, y+5 vClickEnabledText cFF0000, %initText%
+  Gui, Add, Text, y+5 vForceMouseMiddleEnabledText cFF0000, %initText%
+  Gui, Add, Text, y+5 cFF0000, [Escape] Exit script
+  Gui, Add, Text, y+5 vRemainingTimeText cFF0000, %initText%
   ; Make all pixels of this color transparent and make the text itself translucent (150):
   WinSet, TransColor, %CustomColor% 200
   SetTimer, UpdateOSD, 200
