@@ -222,6 +222,7 @@ UpdateOSD:
     RemoveBox("IdleMode")
     RemoveBox("ConfirmTimewarp")
     RemoveBox("UpgradePistol")
+    RemoveBox("Middle")
   }
   return
   
