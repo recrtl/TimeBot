@@ -15,6 +15,7 @@ CoordMode Mouse, Screen
 BotEnabled := false
 ReadINI(OSDEnabled, "Prefs", "OSDEnabled", true)
 ReadINI(ClickEnabled, "Prefs", "ClickEnabled", true)
+ReadINI(ForceMouseMiddleEnabled, "Prefs", "ForceMouseMiddleEnabled", true)
 
 ReadINI(TimewarpX        , "Button positions", "TimewarpX"          , 950)
 ReadINI(TimewarpY        , "Button positions", "TimewarpY"          , 265)
@@ -98,8 +99,14 @@ InitOSD()
   WriteINI(ClickEnabled, "Prefs", "ClickEnabled")
   return
   
+#F6::
+  ForceMouseMiddleEnabled := !ForceMouseMiddleEnabled
+  WriteINI(ForceMouseMiddleEnabled, "Prefs", "ForceMouseMiddleEnabled")
+  return
+
 Fire:
-  MouseMove %MiddleX%, %MiddleY%
+  if(ForceMouseMiddleEnabled)
+    MouseMove %MiddleX%, %MiddleY%
   if(ClickEnabled)
     MouseClick
   return
@@ -140,6 +147,7 @@ Timewarp:
   Send asdfg
   Sleep 500
   ClickUnity(IdleModeX, IdleModeY)
+  MouseMove %MiddleX%, %MiddleY%
   Sleep 500
 
   LastWarpTime := A_Now
@@ -155,6 +163,7 @@ InitOSD()
   global BotEnabledText
   global WarpPeriodText
   global ClickEnabledText
+  global ForceMouseMiddleEnabledText
   global RemainingTimeText
   
   initText = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -170,6 +179,7 @@ InitOSD()
   Gui, Add, Text, vWarpPeriodText cFF0000, %initText%
   Gui, Add, Text, cFF0000, [F4] Calibrate buttons
   Gui, Add, Text, vClickEnabledText cFF0000, %initText%
+  Gui, Add, Text, vForceMouseMiddleEnabledText cFF0000, %initText%
   Gui, Add, Text, cFF0000, [Escape] Exit script
   Gui, Add, Text, vRemainingTimeText cFF0000, %initText%
   ; Make all pixels of this color transparent and make the text itself translucent (150):
@@ -195,6 +205,7 @@ UpdateOSD:
     GuiControl,, BotEnabledText, [Enter] Bot enabled: %BotEnabled%
     GuiControl,, WarpPeriodText, [F3] Warp every: %WarpPeriodHour%h
     GuiControl,, ClickEnabledText, [F5] Click enabled: %ClickEnabled%
+    GuiControl,, ForceMouseMiddleEnabledText, [F6] Force mouse middle enabled: %ForceMouseMiddleEnabled%
 
     Gui, Show, x0 y200 NoActivate
 
