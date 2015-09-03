@@ -1,31 +1,33 @@
 # TimeBot
-AutoHotKey based bot for TimeClickers
+AutoHotKey based bot for TimeClickers : http://www.timegamers.com/TimeClickers/
 
 Requirements:
 * Windows
 * AutoHotKey (http://ahkscript.org/)
 
 Time Clickers requirements & limitations
-* Online Unity version of the game (http://www.timegamers.com/TimeClickers/Unity/)
 * Play in windowed mode
 * Having at least enough to buy all the upgrades after a warp
 * Launching the script will trigger a Timewarp
 
 Features
-* Windows + R : reloads the script
-* Windows + Escape : exit the script (need to relaunch it manually after)
+* Automatically fires every 10ms
+* Automatically upgrade everything every 1s
+* Atuomatically warp after a configurable period of time
+
+Hotkeys
 * Windows + Enter : start the bot
 * Windows + Space : stop the bot
+* Windows + Escape : exit the script (need to relaunch it manually after)
 * Windows + T : force a Timewarp
-* Modifiable WarpPeriod in script
+* Windows + F2 : toggle OSD
+* Windows + F3 : modify the warp period
+* Windows + F4 : calibrate the buttons positions
+* Windows + F5 : enable or disable all mouse clicks (for testing purposes)
+* Windows + F6 : toggle repositioning of mouse every 10ms
 
-Planned features
-* Start the bot during a run
-* Allow to easily change and save WarpPeriod
-* Support standalone (Steam) game version
-* Windows + D : display debug informations
-  * Current mode (bot started/stopped)
-  * Buttons positions
-  * Time until warp
-* Windows + C : enable / disable clicks and keys (for debug purposes)
-* Windows + T : propose to delay the Timewarp
+How to use
+* Launch the game
+* Calibrate the buttons (once and for all)
+* Choose the warp period
+* Start the bot !
