@@ -202,6 +202,7 @@ UpdateOSD:
     DrawBox("IdleMode", IdleModeX, IdleModeY, 25, 25)
     DrawBox("ConfirmTimewarp", ConfirmTimewarpX, ConfirmTimewarpY, 25, 25)
     DrawBox("UpgradePistol", UpgradePistolX, UpgradePistolY, 25, 25)
+    DrawBox("Middle", MiddleX, MiddleY, 25, 25)
   }
   else
   {
