@@ -39,11 +39,6 @@ InitOSD()
 ; ----------
 
 
-; Press Windows + R to reload the script
-#r::
-  Reload
-  return
-
 ; Press Windows + Escape to exit the script
 #Esc::ExitApp
 
