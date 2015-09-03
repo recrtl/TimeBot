@@ -125,18 +125,20 @@ Timewarp:
   ClickUnity(ConfirmTimewarpX, ConfirmTimewarpY)
   Sleep 2000
 
-  ; Upgrade Pistol
-  Loop 100
+  ; Upgrade Pistol & team
+  Loop 30
   {
+    Send asdfg
     ClickUnity(UpgradePistolX, UpgradePistolY)
     Sleep 10
   }
 
   Sleep 500
 
-  ; Upgrade Powers
+  ; Upgrade Powers & team
   Loop 10
   {
+    Send asdfg
     ClickUnity(TimewarpX, TimewarpY)
     Sleep 100
   }
@@ -144,8 +146,6 @@ Timewarp:
   Sleep 500
 
   ; Enable Idle Mode
-  Send asdfg
-  Sleep 500
   ClickUnity(IdleModeX, IdleModeY)
   MouseMove %MiddleX%, %MiddleY%
   Sleep 500
