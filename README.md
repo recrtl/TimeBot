@@ -20,6 +20,7 @@ Hotkeys
 * Windows + Space : stop the bot
 * Windows + Escape : exit the script (need to relaunch it manually after)
 * Windows + T : force a Timewarp
+* Windows + Y : plan a Timewarp
 * Windows + F2 : toggle OSD
 * Windows + F3 : modify the warp period
 * Windows + F4 : calibrate the buttons positions

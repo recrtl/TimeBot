@@ -49,7 +49,7 @@ InitOSD()
   SetTimer Timewarp, off
   SetTimer Upgrade, off
   SetTimer Fire, off
-  
+
   BotEnabled := false
   return
 
@@ -60,19 +60,49 @@ InitOSD()
   Gosub Timewarp
   return
 
-; Press Windows + T to force a Timewarp
+; Press Windows + T to force a Timewarp immediately
 #T::
   if(!BotEnabled)
+  {
+    MsgBox The bot must be enabled to force a Timewarp
     return
+  }
+
   Gosub Timewarp
+
+; Press Windows + Y to plan a Timewarp in X minutes
+#Y::
+  inputValue := Ceil(WarpPeriodHour * 60)
+  InputBox, inputValue, Plan a Timewarp, Please enter the number of minutes that you want remaining in the run, , , , , , , , %inputValue%
+  if(ErrorLevel != 0)
+    return
+
+  if inputValue is number
+  {
+    BotEnabled := true
+    StartTimers(inputValue * 60 * 1000)
+
+    LastWarpTime := A_Now
+    seconds := Ceil(inputValue - WarpPeriodHour * 60)
+    EnvAdd, LastWarpTime, %seconds%, minutes
+  }
+  else
+  {
+    MsgBox %inputValue% is not a number
+  }
+
+  return
 
 #F2::
   OSDEnabled := !OSDEnabled
   WriteINI(OSDEnabled, "Prefs", "OSDEnabled")
   return
-  
+
 #F3::
   InputBox, inputValue, Modify Timewarp period, Please enter the number of hours you want to wait between two warps (This will not change the current run), , , , , , , , %WarpPeriodHour%
+  if(ErrorLevel != 0)
+    return
+
   if inputValue is number
   {
     WarpPeriodHour := inputValue
@@ -93,7 +123,7 @@ InitOSD()
   ClickEnabled := !ClickEnabled
   WriteINI(ClickEnabled, "Prefs", "ClickEnabled")
   return
-  
+
 #F6::
   ForceMouseMiddleEnabled := !ForceMouseMiddleEnabled
   WriteINI(ForceMouseMiddleEnabled, "Prefs", "ForceMouseMiddleEnabled")
@@ -145,13 +175,20 @@ Timewarp:
   MouseMove %MiddleX%, %MiddleY%
   Sleep 500
 
-  LastWarpTime := A_Now
-  SetTimer Upgrade, 1000
-  SetTimer Fire, 10
-  SetTimer Timewarp, %WarpPeriod%
+  StartTimers(WarpPeriod)
 
   return
 
+StartTimers(nextWarpPeriod)
+{
+  global LastWarpTime
+
+  LastWarpTime := A_Now
+
+  SetTimer Upgrade, 1000
+  SetTimer Fire, 10
+  SetTimer Timewarp, %nextWarpPeriod%
+}
 
 InitOSD()
 {
@@ -197,7 +234,7 @@ UpdateOSD:
     {
       GuiControl,, RemainingTimeText, Remaining time: N/A
     }
-    
+
     GuiControl,, BotEnabledText, [Enter] Bot enabled: %BotEnabled%
     GuiControl,, WarpPeriodText, [F3] Warp every: %WarpPeriodHour%h
     GuiControl,, ClickEnabledText, [F5] Click enabled: %ClickEnabled%
@@ -221,7 +258,7 @@ UpdateOSD:
     RemoveBox("Middle")
   }
   return
-  
+
 CalibrateButtons()
 {
   global TimewarpX
@@ -234,7 +271,7 @@ CalibrateButtons()
   global IdleModeY
   global MiddleX
   global MiddleY
-  
+
   MsgBox Target the Abilities / Timewarp button and press Enter
   MouseGetPos TimewarpX, TimewarpY
   MsgBox Target the Timewarp Confirmation button and press Enter
@@ -245,7 +282,7 @@ CalibrateButtons()
   MouseGetPos IdleModeX, IdleModeY
   MsgBox Target the spot where you want to leave the mouse and press Enter
   MouseGetPos MiddleX, MiddleY
-  
+
   WriteINI(TimewarpX        , "Button positions", "TimewarpX")
   WriteINI(TimewarpY        , "Button positions", "TimewarpY")
   WriteINI(ConfirmTimewarpX , "Button positions", "ConfirmTimewarpX")
@@ -277,7 +314,7 @@ ImageSearchScreen(ImageFile, ByRef xRef, ByRef yRef)
 ClickUnity(x, y)
 {
   global ClickEnabled
-  
+
   CoordMode, Mouse, Screen
   MouseMove %x%, %y%
   if(ClickEnabled)
