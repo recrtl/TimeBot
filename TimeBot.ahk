@@ -193,8 +193,9 @@ UpdateOSD:
   {
     if(LastWarpTime)
     {
-      elapsed := A_Now - LastWarpTime
-      remaining := (WarpPeriod // 1000 - elapsed) // 60
+      elapsed := A_Now
+      EnvSub, elapsed, %LastWarpTime%, seconds
+      remaining := Ceil((WarpPeriod / 1000 - elapsed) / 60)
       GuiControl,, RemainingTimeText, Remaining time: %remaining%m
     }
     else
