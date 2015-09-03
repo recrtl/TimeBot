@@ -173,7 +173,7 @@ InitOSD()
   Gui, Add, Text, cFF0000, [Escape] Exit script
   Gui, Add, Text, vRemainingTimeText cFF0000, %initText%
   ; Make all pixels of this color transparent and make the text itself translucent (150):
-  WinSet, TransColor, %CustomColor% 150
+  WinSet, TransColor, %CustomColor% 200
   SetTimer, UpdateOSD, 200
   Gosub, UpdateOSD
 }
