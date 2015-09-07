@@ -150,20 +150,27 @@ Timewarp:
   ClickUnity(ConfirmTimewarpX, ConfirmTimewarpY)
   Sleep 2000
 
-  ; Upgrade Pistol & team
-  Loop 100
+  ; Upgrade team
+  Loop 90
   {
     Send asdfg
+    Sleep 10
+  }
+
+  Sleep 100
+
+  ; Upgrade Pistol
+  Loop 12
+  {
     ClickUnity(UpgradePistolX, UpgradePistolY)
     Sleep 10
   }
 
-  Sleep 500
+  Sleep 100
 
-  ; Upgrade Powers & team
-  Loop 20
+  ; Upgrade Powers
+  Loop 10
   {
-    Send asdfg
     ClickUnity(TimewarpX, TimewarpY)
     Sleep 100
   }
