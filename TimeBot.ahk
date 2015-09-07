@@ -25,6 +25,8 @@ ReadINI(UpgradePistolX   , "Button positions", "UpgradePistolX"     , 950)
 ReadINI(UpgradePistolY   , "Button positions", "UpgradePistolY"     , 194)
 ReadINI(IdleModeX        , "Button positions", "IdleModeX"          , 723)
 ReadINI(IdleModeY        , "Button positions", "IdleModeY"          , 575)
+ReadINI(IdleModeRocketX  , "Button positions", "IdleModeRocketX"    , 723)
+ReadINI(IdleModeRocketY  , "Button positions", "IdleModeRocketY"    , 575)
 ReadINI(MiddleX          , "Button positions", "MiddleX"            , 500)
 ReadINI(MiddleY          , "Button positions", "MiddleY"            , 300)
 
@@ -179,6 +181,8 @@ Timewarp:
 
   ; Enable Idle Mode
   ClickUnity(IdleModeX, IdleModeY)
+  Sleep 100
+  ClickUnity(IdleModeRocketX, IdleModeRocketY)
   Sleep 500
 
   StartTimers(WarpPeriod)
@@ -251,6 +255,7 @@ UpdateOSD:
 
     DrawBox("Timewarp", TimewarpX, TimewarpY, 25, 25)
     DrawBox("IdleMode", IdleModeX, IdleModeY, 25, 25)
+    DrawBox("IdleModeRocket", IdleModeRocketX, IdleModeRocketY, 25, 25)
     DrawBox("ConfirmTimewarp", ConfirmTimewarpX, ConfirmTimewarpY, 25, 25)
     DrawBox("UpgradePistol", UpgradePistolX, UpgradePistolY, 25, 25)
     DrawBox("Middle", MiddleX, MiddleY, 25, 25)
@@ -260,6 +265,7 @@ UpdateOSD:
     Gui Hide
     RemoveBox("Timewarp")
     RemoveBox("IdleMode")
+    RemoveBox("IdleModeRocket")
     RemoveBox("ConfirmTimewarp")
     RemoveBox("UpgradePistol")
     RemoveBox("Middle")
@@ -276,6 +282,8 @@ CalibrateButtons()
   global UpgradePistolY
   global IdleModeX
   global IdleModeY
+  global IdleModeRocketX
+  global IdleModeRocketY
   global MiddleX
   global MiddleY
 
@@ -287,6 +295,8 @@ CalibrateButtons()
   MouseGetPos UpgradePistolX, UpgradePistolY
   MsgBox Target the Idle Mode button and press Enter
   MouseGetPos IdleModeX, IdleModeY
+  MsgBox Target the Idle Mode Rocket button and press Enter
+  MouseGetPos IdleModeRocketX, IdleModeRocketY
   MsgBox Target the spot where you want to leave the mouse and press Enter
   MouseGetPos MiddleX, MiddleY
 
@@ -298,6 +308,8 @@ CalibrateButtons()
   WriteINI(UpgradePistolY   , "Button positions", "UpgradePistolY")
   WriteINI(IdleModeX        , "Button positions", "IdleModeX")
   WriteINI(IdleModeY        , "Button positions", "IdleModeY")
+  WriteINI(IdleModeRocketX  , "Button positions", "IdleModeRocketX")
+  WriteINI(IdleModeRocketY  , "Button positions", "IdleModeRocketY")
   WriteINI(MiddleX          , "Button positions", "MiddleX")
   WriteINI(MiddleY          , "Button positions", "MiddleY")
 }
