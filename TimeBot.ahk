@@ -156,16 +156,16 @@ Timewarp:
   Loop 90
   {
     Send asdfg
-    Sleep 10
+    Sleep 100
   }
 
-  Sleep 100
+  Sleep 1000
 
   ; Upgrade Pistol
   Loop 12
   {
     ClickUnity(UpgradePistolX, UpgradePistolY)
-    Sleep 10
+    Sleep 100
   }
 
   Sleep 100
